@@ -4,33 +4,45 @@ This is a project to run spotifyd on raspberry pi, play the output to a speaker 
 Many thanks to spotifyd project 
 
 ## Get Spotify source 
+```
 git clone https://github.com/Spotifyd/spotifyd.git
+```
 
 ## Install rust
+```
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 source /home/ubuntu/.cargo/env
+```
 
 ## install additional required lib as required by spotifyd
+```
 sudo apt-get install libasound2-dev
 sudo apt-get install libssl-dev
 sudo apt-get install libpulse-dev
 sudo apt-get install libdbus-1-dev
+```
 
 ## Build spotifyd
+```
 cd spotifyd
 cargo build --release
+```
 
 ## enable audio and select to play over HDMI or audio jack
 Add the following to /boot/firmware/usercfg.txt (here is the link: https://www.raspberrypi.org/documentation/configuration/config-txt/)
 
+```
 hdmi_drive=2
 dtparam=audio=on
 #hdmi_force_edid_audio=1 // enable if you want to play audio over hdmi
 hdmi_ignore_edid_audio=1 // enable if you want to play audio over audio jack
+```
 
 
 ## install ALSA, MPlayer and PulseAudio
+```
 sudo apt-get install --reinstall alsa-base pulseaudio
+```
 
 ## setup spotify config file
 $HOME/.config/spotifyd/spotifyd.conf
@@ -60,5 +72,7 @@ device_type = computer
 ```
 
 ## Run and test 
+```
 spotifyd/target/release/spotifyd --no-daemon -d MySweetPi --zeroconf-port 4070
+```
 
